@@ -43,7 +43,7 @@
 									<i class="ace-icon fa fa-check green"></i>
 									您好，
 									<strong class="red2">
-										欢迎使用威高售后服务系统，版本号V1.0。
+										欢迎使用皇冠幼儿园内部管理系统，版本号V1.0。
 									</strong>
                                      
 	 

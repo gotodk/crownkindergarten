@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminht/MasterPageMain.master" AutoEventWireup="true" CodeFile="demo_home.aspx.cs" Inherits="demo_home" %>
 
-<%@ Register Src="~/adminht/corepage/WUC_fordemohome.ascx" TagPrefix="uc1" TagName="WUC_fordemohome" %>
-<%@ Register Src="~/adminht/corepage/WUC_fordemohome_js.ascx" TagPrefix="uc1" TagName="WUC_fordemohome_js" %>
+<%@ Register Src="~/adminht/corepage/WUC_fordemohome_hg.ascx" TagPrefix="uc1" TagName="WUC_fordemohome" %>
+<%@ Register Src="~/adminht/corepage/WUC_fordemohome_js_hg.ascx" TagPrefix="uc1" TagName="WUC_fordemohome_js" %>
 
 
 

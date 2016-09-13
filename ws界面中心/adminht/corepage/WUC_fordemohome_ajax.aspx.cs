@@ -28,7 +28,7 @@ public partial class WUC_fordemohome_ajax : System.Web.UI.Page
             string restr = re_dsi[1].ToString();
             //
             Response.Write(restr);
-
+           
         }
         else
         {
