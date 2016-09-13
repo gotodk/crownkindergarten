@@ -13,11 +13,11 @@
 
             <!-- #section:basics/sidebar.layout.shortcuts -->
             <button class="btn btn-warning">
-                <i class="ace-icon fa fa-briefcase"  onclick="window.top.location.href='/adminht/corepage/fwbg/edit_bxsq.aspx'"></i>
+                <i class="ace-icon fa fa-share-alt"  onclick="window.top.location.href='/adminht/corepage/fwbg/xxx.aspx'"></i>
             </button>
 
             <button class="btn btn-info">
-                <i class="ace-icon fa fa-file-word-o" onclick="window.top.location.href='/adminht/corepage/fwbg/edit_fwbg.aspx'"></i>
+                <i class="ace-icon fa fa-retweet" onclick="window.top.location.href='/adminht/corepage/huiqian/cyhq_list_s.aspx'"></i>
             </button>
 
       
