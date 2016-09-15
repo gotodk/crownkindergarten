@@ -80,7 +80,7 @@ public partial class st : System.Web.UI.Page
         {
             ds_DD = (DataSet)(re_dsi[1]);
             try {
-                arr_tupian = ds_DD.Tables["数据记录"].Rows[0]["tupian"].ToString().Split(',');
+                arr_tupian = ds_DD.Tables["数据记录"].Rows[0]["tupian"].ToString().Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
                 /*
                 //如果只有一个文件，直接转到下载链接
