@@ -25,7 +25,28 @@ public partial class st : System.Web.UI.Page
     {
         bool fileOK = false;
         String fileExtension = System.IO.Path.GetExtension(Server.MapPath(p)).ToLower();
-        String[] allowedExtensions = { ".gif", ".png", ".bmp", ".jpg" };
+        String[] allowedExtensions = { ".gif", ".png", ".bmp", ".jpg", ".jpeg" };
+        for (int i = 0; i < allowedExtensions.Length; i++)
+        {
+            if (fileExtension == allowedExtensions[i])
+            {
+                fileOK = true;
+            }
+        }
+
+        return fileOK;
+    }
+
+    /// <summary>
+    /// 检查是否支持在线播放的视频
+    /// </summary>
+    /// <param name="p"></param>
+    /// <returns></returns>
+    public bool Checkshipin(string p)
+    {
+        bool fileOK = false;
+        String fileExtension = System.IO.Path.GetExtension(Server.MapPath(p)).ToLower();
+        String[] allowedExtensions = { ".mp4"};
         for (int i = 0; i < allowedExtensions.Length; i++)
         {
             if (fileExtension == allowedExtensions[i])

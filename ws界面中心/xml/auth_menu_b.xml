@@ -329,7 +329,12 @@
     <SortParentID>81</SortParentID>
     <SortParentPath>,81,</SortParentPath>
     <SortOrder>20</SortOrder>
+    <m_url>/adminht/corepage/bas/list_cy_zhishi.aspx</m_url>
+    <m_tip />
+    <m_tag />
+    <m_ico />
     <m_show>不隐藏</m_show>
+    <m_url_formenu_g>/adminht/corepage/bas/edit_zhishi.aspx.*showinfo=2</m_url_formenu_g>
     <SortNameTree>│├知识库查阅</SortNameTree>
     <SortMoveUp>0</SortMoveUp>
     <SortMoveDown>-2</SortMoveDown>
@@ -346,7 +351,7 @@
     <m_tag />
     <m_ico />
     <m_show>不隐藏</m_show>
-    <m_url_formenu_g>/adminht/corepage/bas/edit_zhishi.aspx</m_url_formenu_g>
+    <m_url_formenu_g>/adminht/corepage/bas/edit_zhishi.aspx.*showinfo=1</m_url_formenu_g>
     <SortNameTree>│├知识库维护</SortNameTree>
     <SortMoveUp>1</SortMoveUp>
     <SortMoveDown>-1</SortMoveDown>
@@ -362,7 +367,7 @@
     <m_tip />
     <m_tag />
     <m_ico />
-    <m_show>不隐藏</m_show>
+    <m_show>隐藏</m_show>
     <m_url_formenu_g />
     <SortNameTree>│└访问记录</SortNameTree>
     <SortMoveUp>2</SortMoveUp>
