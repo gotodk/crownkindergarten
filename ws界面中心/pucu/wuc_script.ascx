@@ -1111,7 +1111,7 @@
                     myDropzone = new Dropzone("#dropzone", {
                         paramName: "file1", // The name that will be used to transfer the file
                         maxFilesize: 500, // MB
-                        maxFiles: 20,
+                        maxFiles: 100,
                         url: '/ajaxdropzoneupload.aspx',
                         addRemoveLinks: true,
                         createImageThumbnails: true,

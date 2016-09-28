@@ -8,6 +8,7 @@ using System.Data;
 using FMPublicClass;
 using System.Numerics;
 using System.Web.Script.Serialization;
+using System.IO;
 
 public class NoReSet_160429000037
 {
@@ -57,7 +58,7 @@ public class NoReSet_160429000037
         ArrayList alsql = new ArrayList();
         Hashtable param = new Hashtable();
         //以可排序guid方式生成
-        string guid = CombGuid.GetNewCombGuid("F");
+        string guid = CombGuid.GetMewIdFormSequence("ZZZ_WENDANG");
         param.Add("@FID", guid);
         param.Add("@Fmingcheng", ht_forUI["Fmingcheng"].ToString());
         param.Add("@Fleixing", ht_forUI["Fleixing"].ToString());
@@ -71,15 +72,62 @@ public class NoReSet_160429000037
 
         param.Add("@Fjianshu", ht_forUI["Fjianshu"].ToString());
 
-        alsql.Add("INSERT INTO ZZZ_WENDANG(FID, Fmingcheng, Fleixing, Ffujian, Fjianshu, Friqi ) VALUES(@FID, @Fmingcheng, @Fleixing, @Ffujian, @Fjianshu, getdate() )");
- 
+        Dictionary<int, string> dicf = new Dictionary<int, string>();
+        //如果虚拟路径被设置，并且拆分选项被选择
+        if (ht_forUI.Contains("Fxunnishibie") && ht_forUI.Contains("Fxnsbxx") && ht_forUI["Fxunnishibie"].ToString().Trim() != "" && ht_forUI["Fxnsbxx"].ToString().Trim() != "")
+        {
+            if (ht_forUI["Fxnsbxx"].ToString() == "百拆分")
+            {
+                string[] files = System.IO.Directory.GetFiles("D:\\文件档案\\" + ht_forUI["Fxunnishibie"].ToString() + "\\");//获取该目录下的Doc文件,不含子目录
+                int zl = files.Length;
+
+                decimal cfl = 100;
+                for (int i = 1; i <= zl; i++)
+                {
+                    int b = (int)Math.Ceiling(i / cfl);
+                    if (!dicf.ContainsKey(b))
+                    {
+                        dicf.Add(b, "");
+                    }
+                    dicf[b] = dicf[b] + "/zdywj/" + ht_forUI["Fxunnishibie"].ToString() + "/" +  Path.GetFileName(files[i-1])  + ",";
+
+                }
+
+            }
+        }
+        string zz_guid = "";
+        if (dicf.Count > 0)
+        {
+            foreach (KeyValuePair<int, string> kv in dicf)
+            {
+                string ming = kv.Key.ToString().PadLeft(6, '0');
+                string zhi = kv.Value.TrimEnd(',');
+                param.Add("@FID" + ming, guid + "_" + ming);
+                zz_guid = guid + "_" + ming;
+
+                param.Add("@Fmingcheng" + ming, ht_forUI["Fmingcheng"].ToString() + "_" + ming);
+                param.Add("@Ffujian" + ming, zhi);
+                alsql.Add("INSERT INTO ZZZ_WENDANG(FID, Fmingcheng, Fleixing, Ffujian, Fjianshu, Friqi ) VALUES(@FID" + ming + ", @Fmingcheng" + ming + " , @Fleixing, @Ffujian" + ming + " , @Fjianshu, getdate() )");
+            }
+            
+        }
+        else
+        {
+
+            alsql.Add("INSERT INTO ZZZ_WENDANG(FID, Fmingcheng, Fleixing, Ffujian, Fjianshu, Friqi ) VALUES(@FID, @Fmingcheng , @Fleixing, @Ffujian, @Fjianshu, getdate() )");
+            zz_guid = guid;
+        }
+     
+
+
+
 
         return_ht = I_DBL.RunParam_SQL(alsql, param);
 
         if ((bool)(return_ht["return_float"]))
         {
             dsreturn.Tables["返回值单条"].Rows[0]["执行结果"] = "ok";
-            dsreturn.Tables["返回值单条"].Rows[0]["提示文本"] = "新增成功！{" + guid + "}";
+            dsreturn.Tables["返回值单条"].Rows[0]["提示文本"] = "新增成功！{" + zz_guid + "}";
         }
         else
         {

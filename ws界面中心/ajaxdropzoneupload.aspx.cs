@@ -50,6 +50,7 @@ public partial class ajaxdropzoneupload : System.Web.UI.Page
 
             string fileName = file.FileName;
             string fileExtension = Path.GetExtension(fileName);
+            string wjm = Path.GetFileNameWithoutExtension(fileName);
             if (fileExtension == null || fileExtension == String.Empty)
             {
                 Response.StatusCode = 500;
