@@ -34,6 +34,56 @@ public class NoReSet_160922000060
     }
 
 
+    /// <summary>
+    /// 如果品号未填写，并且无法同时找到相同的名称、规格、单位、批号，则创建一个档案，并返回创建的品号。
+    /// </summary>
+    /// <param name="LID"></param>
+    /// <param name="Lmingcheng"></param>
+    /// <param name="Lguige"></param>
+    /// <param name="Ldanwei"></param>
+    /// <returns></returns>
+    private string CheckPH(string LID,string Lmingcheng,string Lguige,string Ldanwei)
+    {
+        // 如果品号未填写，并且无法同时找到相同的名称、规格、单位、批号，则创建一个档案，并返回创建的品号。
+        if (LID != "")
+        {
+            return LID;
+        }
+        else
+        {
+            I_Dblink I_DBL = (new DBFactory()).DbLinkSqlMain("");
+            Hashtable return_ht = new Hashtable();
+            Hashtable param = new Hashtable();
+            string guid = CombGuid.GetMewIdFormSequence("ZZZ_WFLJ");
+            param.Add("@LID", guid);
+            param.Add("@Lmingcheng", Lmingcheng);
+            param.Add("@Lguige", Lguige);
+            param.Add("@Ldanwei", Ldanwei);
+
+            return_ht = I_DBL.RunParam_SQL(" declare  @ph nvarchar(50) ; select @ph = LID from  ZZZ_WFLJ where Lmingcheng=@Lmingcheng and Lguige=@Lguige and Ldanwei=@Ldanwei; if(@ph is null) begin INSERT INTO  ZZZ_WFLJ(LID, Lmingcheng,  Lguige,  Ldanwei, Lzhuangtai) VALUES(@LID, @Lmingcheng,  @Lguige,  @Ldanwei, '正常'); select @LID as LID  end  else begin  select @ph as LID; end ", "数据记录", param);
+
+
+            if ((bool)(return_ht["return_float"]))
+            {
+                DataTable redb = ((DataSet)return_ht["return_ds"]).Tables["数据记录"].Copy();
+
+                if (redb.Rows.Count < 1)
+                {
+                    return "";
+                }
+                else
+                {
+                    return redb.Rows[0][0].ToString();
+                }
+            }
+            else
+            {
+                return "";
+            }
+        }
+       
+        return "";
+    }
  
 
     /// <summary>
@@ -124,6 +174,16 @@ public class NoReSet_160922000060
             param.Add("@sub_" + "r_shuliang" + "_" + i, subdt.Rows[i]["入库数量"].ToString());
             param.Add("@sub_" + "r_danwei" + "_" + i, subdt.Rows[i]["单位"].ToString());
             param.Add("@sub_" + "r_pihao" + "_" + i, subdt.Rows[i]["批号"].ToString());
+
+            //调用方法，如果品号未填写，并且无法同时找到相同的名称、规格、单位 ，则创建一个档案，并返回创建的品号。
+            string PH = CheckPH(subdt.Rows[i]["入库品号"].ToString().Trim(), subdt.Rows[i]["名称"].ToString().Trim(),subdt.Rows[i]["规格"].ToString().Trim(), subdt.Rows[i]["单位"].ToString().Trim());
+            if (PH.Trim() == "")
+            {
+                dsreturn.Tables["返回值单条"].Rows[0]["执行结果"] = "err";
+                dsreturn.Tables["返回值单条"].Rows[0]["提示文本"] = "发生错误，品号生成失败。";
+                return dsreturn;
+            }
+            param["@sub_" + "r_cpbh" + "_" + i] = PH;
 
             string INSERTsql = "INSERT INTO ZZZ_C_record_sub (subid, rid, r_chu, r_ru, r_cpbh, r_shuliang, r_danwei ,r_pihao) VALUES(@sub_" + "subid" + "_" + i + ", @sub_MainID, @sub_" + "r_chu" + "_" + i + ", @sub_" + "r_ru" + "_" + i + ", @sub_" + "r_cpbh" + "_" + i + ", @sub_" + "r_shuliang" + "_" + i + ", @sub_" + "r_danwei" + "_" + i + " , @sub_" + "r_pihao" + "_" + i + ")";
             alsql.Add(INSERTsql);

@@ -29,8 +29,8 @@
     <script type="text/javascript">
              jQuery(function ($) {
                  if (getUrlParam("fff") == "1") {
-
-                      
+                     $('#Fxunnishibie').closest(".form-group").hide();
+                     $("input[name='Fxnsbxx']").closest(".form-group").hide();
                  }
 
                  var dfx_str = "#show_searchopenyhbspgogo_Fleixing";
