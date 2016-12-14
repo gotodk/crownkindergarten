@@ -78,7 +78,7 @@ public class NoReSet_160429000037
         {
             if (ht_forUI["Fxnsbxx"].ToString() == "百拆分")
             {
-                string[] files = System.IO.Directory.GetFiles("D:\\文件档案\\" + ht_forUI["Fxunnishibie"].ToString() + "\\");//获取该目录下的Doc文件,不含子目录
+                string[] files = System.IO.Directory.GetFiles("D:\\文件档案\\" + ht_forUI["Fxunnishibie"].ToString() + "\\");//获取该目录下的文件,不含子目录
                 int zl = files.Length;
 
                 decimal cfl = 100;
